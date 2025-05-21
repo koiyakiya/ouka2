@@ -9,7 +9,7 @@ plugin = arc.GatewayPlugin("cutegirls")
 cutegirls = plugin.include_slash_group("cutegirls")
 tags = cutegirls.include_subgroup("tags")
 
-async def provide_opts(
+async def tag_autocomplete(
     data: arc.AutocompleteData[arc.GatewayClient, str],
     db: aiosqlite.Connection = arc.inject(),
 ) -> list[str]:
@@ -41,7 +41,7 @@ async def create_tag(
 async def delete_tag(
     ctx: arc.GatewayContext,
     name: arc.Option[
-        str, arc.StrParams("The tag name❓🤔", autocomplete_with=provide_opts)
+        str, arc.StrParams("The tag name❓🤔", autocomplete_with=tag_autocomplete)
     ],
     db: aiosqlite.Connection = arc.inject(),
 ) -> None:
