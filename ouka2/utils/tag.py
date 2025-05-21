@@ -6,6 +6,7 @@ from dataclasses import dataclass
 
 @dataclass
 class Tag:
+    id: int
     name: str
     creator_id: int
 
@@ -52,7 +53,8 @@ class TagManager:
                 ),
             )
             await db.commit()
-            return Tag(name=name, creator_id=creator_id)
+            tag_id = await TagManager.get_tag_id(name, db)
+            return Tag(id=tag_id, name=name, creator_id=creator_id)
         except sqlite3.IntegrityError:
             raise TagExistsError(name)
         except sqlite3.Error as e:
@@ -104,3 +106,30 @@ class TagManager:
             return count[0] > 0
         except sqlite3.Error as e:
             raise TagError(f"Failed to check tag existence: {e}")
+        
+    @staticmethod
+    async def get_tag_id(name: str, db: aiosqlite.Connection) -> int:
+        """
+        Retrieves the ID of a tag by its name.
+        
+        Args:
+            name (str): The name of the tag
+            db (aiosqlite.Connection): Database connection
+            
+        Returns:
+            int: The ID of the tag
+            
+        Raises:
+            TagDoesNotExistError: If the tag doesn't exist
+            TagError: If there's an error retrieving the tag ID
+        """
+        try:
+            cursor = await db.execute(
+                "SELECT id FROM tags WHERE name = ?", (name,)
+            )
+            row = await cursor.fetchone()
+            if row is None:
+                raise TagDoesNotExistError(name)
+            return row[0]
+        except sqlite3.Error as e:
+            raise TagError(f"Failed to retrieve tag ID: {e}")
