@@ -8,6 +8,7 @@ from googleapiclient.http import MediaIoBaseUpload, MediaIoBaseDownload
 from typing import Union
 from async_lru import alru_cache
 from dataclasses import dataclass
+from ouka2 import CUTEGIRLS_PARENT
 
 ID = Union[str, None]
 
@@ -86,7 +87,7 @@ class GoogleDrive:
         metadata = {
             "name": filename,
             "parents": [
-                "1YlVDr-04sCjML7jObb7o4TO2wvEJ5xLC",
+                CUTEGIRLS_PARENT,
             ],
         }
         media = MediaIoBaseUpload(

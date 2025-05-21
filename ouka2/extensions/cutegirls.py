@@ -9,12 +9,10 @@ plugin = arc.GatewayPlugin("cutegirls")
 cutegirls = plugin.include_slash_group("cutegirls")
 tags = cutegirls.include_subgroup("tags")
 
-
 async def provide_opts(
     data: arc.AutocompleteData[arc.GatewayClient, str],
     db: aiosqlite.Connection = arc.inject(),
 ) -> list[str]:
-    """Provide options for tag names."""
     query = data.focused_value
     if not query:
         return []
