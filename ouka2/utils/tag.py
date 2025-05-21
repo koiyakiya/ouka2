@@ -35,7 +35,7 @@ class TagManager:
                 raise TagDoesNotExistError(name)
             cursor = await db.execute("DELETE FROM tags WHERE name = ?", (name,))
             await db.commit()
-            return cursor.rowcount > 0
+            return True
         except sqlite3.Error as e:
             raise TagCreationError(f"Failed to delete tag: {e}")
 
