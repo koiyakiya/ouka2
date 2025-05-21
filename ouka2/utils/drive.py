@@ -93,7 +93,7 @@ class GoogleDrive:
         media = MediaIoBaseUpload(
             BytesIO(file_bytes),
             mimetype=mime_type,
-            resumable=False,  # Set to False for faster uploads of small files
+            resumable=False,
         )
 
         file = (
