@@ -29,13 +29,12 @@ class TagManager:
             raise TagCreationError(f"Failed to create tag: {e}")
 
     @staticmethod
-    async def delete_tag(name: str, db: aiosqlite.Connection) -> bool:
+    async def delete_tag(name: str, db: aiosqlite.Connection) -> None:
         try:
             if not await TagManager.exists(name, db):
                 raise TagDoesNotExistError(name)
-            cursor = await db.execute("DELETE FROM tags WHERE name = ?", (name,))
+            await db.execute("DELETE FROM tags WHERE name = ?", (name,))
             await db.commit()
-            return True
         except sqlite3.Error as e:
             raise TagCreationError(f"Failed to delete tag: {e}")
 
