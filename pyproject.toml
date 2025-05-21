@@ -1,0 +1,16 @@
+[project]
+name = "ouka2"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "aiosqlite>=0.21.0",
+    "async-lru>=2.0.5",
+    "dotenv>=0.9.9",
+    "google-api-python-client>=2.169.0",
+    "google-auth-oauthlib>=1.2.2",
+    "hikari>=2.3.3",
+    "hikari-arc>=2.1.1",
+    "hikari-miru>=4.2.0",
+]

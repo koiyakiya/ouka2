@@ -1,0 +1,24 @@
+CREATE TABLE IF NOT EXISTS images (
+    id TEXT PRIMARY KEY,
+    user_id INTEGER NOT NULL,
+    uploaded_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    file_name TEXT NOT NULL,
+    mime_type TEXT NOT NULL,
+    file_size INTEGER NOT NULL,
+    description TEXT
+);
+
+CREATE TABLE IF NOT EXISTS tags (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name TEXT NOT NULL UNIQUE,
+    creator_id INTEGER NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS image_tag (
+    image_id TEXT NOT NULL,
+    tag_id INTEGER NOT NULL,
+    PRIMARY KEY (image_id, tag_id),
+    FOREIGN KEY (image_id) REFERENCES images(id) ON DELETE CASCADE,
+    FOREIGN KEY (tag_id) REFERENCES tags(id) ON DELETE CASCADE
+);
