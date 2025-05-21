@@ -127,9 +127,9 @@ class GoogleDrive:
         while done is False:
             _, done = downloader.next_chunk()
         fh.seek(0)
-        file = self.service.files().get(fileId=file_id).execute()  # type: ignore
-        filename = file.get("name")
-        mime_type = file.get("mimeType")
+        file_properties = self.service.files().get(fileId=file_id).execute()  # type: ignore
+        filename = file_properties.get("name")
+        mime_type = file_properties.get("mimeType")
         byte = fh.read()
         return ImageData(
             content=byte, file_name=filename, mime_type=mime_type, file_size=len(byte)
