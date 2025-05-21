@@ -2,7 +2,6 @@ import aiosqlite
 import sqlite3
 from ouka2.utils.exceptions import *
 from dataclasses import dataclass
-from async_lru import alru_cache
 
 
 @dataclass
@@ -40,7 +39,6 @@ class TagManager:
             raise TagCreationError(f"Failed to delete tag: {e}")
 
     @staticmethod
-    @alru_cache(maxsize=10)
     async def exists(name: str, db: aiosqlite.Connection) -> bool:
         try:
             cursor = await db.execute(
