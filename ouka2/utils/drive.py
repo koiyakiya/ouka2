@@ -21,6 +21,22 @@ class ImageData:
 
 
 class GoogleDriveAuth:
+    """
+    A class for handling Google Drive authentication using OAuth2.
+
+    This class manages the authentication flow to access Google Drive APIs.
+    It can use existing tokens, refresh them if expired, or initiate a new
+    authentication flow if needed.
+
+    ## Attributes:
+        `creds (str)`: Path to the client secrets JSON file. Default is 'client_secrets.json'.
+        `token (str)`: Path to store the authentication token. Default is 'token.json'.
+        `scopes (list)`: List of authorization scopes required. Default is ['https://www.googleapis.com/auth/drive.file'],
+                       which allows creating, opening, and modifying files created by the app.
+
+    ## Methods:
+        `get_credentials():` Obtains valid credentials for Google Drive API access.
+    """
     def __init__(
         self, creds: str = "client_secrets.json", token: str = "token.json"
     ) -> None:
